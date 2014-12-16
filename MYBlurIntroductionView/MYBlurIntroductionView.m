@@ -57,14 +57,13 @@
     CGFloat skipStringWidth = 0;
     kSkipButtonFont = [UIFont systemFontOfSize:16];
     
-    if ([MYIntroductionPanel runningiOS7]) {
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
         NSDictionary *titleAttributes = [NSDictionary dictionaryWithObject:kSkipButtonFont forKey: NSFontAttributeName];
         skipStringWidth = [skipString boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:titleAttributes context:nil].size.width;
         skipStringWidth = ceilf(skipStringWidth);
-    }
-    else {
+#else
         skipStringWidth = [skipString sizeWithFont:kSkipButtonFont constrainedToSize:CGSizeMake(MAXFLOAT, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping].width;
-    }
+#endif
     
     //Left Skip Button
     self.LeftSkipButton = [UIButton buttonWithType:UIButtonTypeCustom];
